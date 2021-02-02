@@ -240,10 +240,8 @@ func createValueRowsFromList(
 
 		valueRows = append(valueRows, listRow)
 		documentLeafNodes = false
-	}
-
-	// If it has NotationType described, then use that
-	if hasDescription || (autoDescription.Description != "" && autoDescription.NotationType != "") {
+	} else if hasDescription || (autoDescription.Description != "" && autoDescription.NotationType != "") {
+		// If it has NotationType described, then use that
 		var notationValue interface{}
 		var err error
 		var listRow valueRow
@@ -331,10 +329,9 @@ func createValueRowsFromObject(
 
 		valueRows = append(valueRows, objectRow)
 		documentLeafNodes = false
-	}
+	} else if hasDescription || (autoDescription.Description != "" && autoDescription.NotationType != "") {
 
-	// If it has NotationType described, then use that
-	if hasDescription || (autoDescription.Description != "" && autoDescription.NotationType != "") {
+		// If it has NotationType described, then use that
 		var notationValue interface{}
 		var err error
 		var objectRow valueRow
