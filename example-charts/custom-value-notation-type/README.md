@@ -43,7 +43,7 @@ from this README.
 
 The customization can goes even further. Normally, you can't define anchor in markdown unless it it a heading. But you can do so easily using HTML tags.
 You can override the column key renderer by adding an `id` attribute so that it can be referred.
-This way, when you write markdown links like [persistence.enabled](#persistence--enabled), clicking the link
+This way, when you write markdown links like [ingress.tls.secretName](#ingress--tls--secretName), clicking the link
 will take you to the value description row.
 
 ## Value Types
@@ -58,7 +58,7 @@ some tooltip. Clicking the type link will direct you back to it's relevant value
 
 Other useful case is If the type is a known type, like
 Kubernetes service type, you can anchor the type to redirect user to k8s documentation page to learn more.
-Check the value [ingress.tls.secretName](#ingress--tls--secretName)
+Check the value [persistence.staticDir.accessModes](#persistence--staticDir--accessModes)
 
 ### string/email
 
@@ -552,6 +552,20 @@ string
 </pre>
 </td>
 			<td>You must provide a secret name where the TLS cert is stored</td>
+		</tr>
+		<tr>
+			<td id="labels">labels</td>
+			<td>
+map
+</td>
+			<td><pre lang="yaml">
+user/workload: "true"
+client-name: "my-boss"
+project-name: "awesome-project"
+
+</pre>
+</td>
+			<td>The deployment label</td>
 		</tr>
 		<tr>
 			<td id="persistence--mediaDir--accessModes[0]">persistence.mediaDir.accessModes[0]</td>

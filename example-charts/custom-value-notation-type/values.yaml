@@ -76,6 +76,13 @@ global:
   # -- (path) Location to the media directory
   mediaRoot: /opt/django/media
 
+# -- (map) The deployment label
+# @notationType -- yaml
+labels:
+  user/workload: "true"
+  client-name: "my-boss"
+  project-name: "awesome-project"
+
 # -- (tpl/array) Define this for extra Django environment variables
 # @notationType -- tpl
 extraPodEnv: |
