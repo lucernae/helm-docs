@@ -37,6 +37,17 @@ from this README.
 
 ### string/email
 
+One of the benefit of using HTML table is we can make a simple tooltip and anchor.
+For example, the value `global.adminEmail` is annotated as type `string/email`. We create 
+the definition of the value type here and can be anchored by links with `#stringemail` hyperlinks.
+
+We can also create custom type column renderer, where we can assign a tooltip for each type.
+Try this out. Go see `global.adminEmail` value, hover on the value type `string/email`, you will then see 
+some tooltip. Clicking the type link will direct you back to this section. 
+
+Other useful case is If the type is a known type, like 
+Kubernetes service type, you can anchor the type to redirect user to k8s documentation page to learn more.
+
 {{- define "chart.valuetypes.email" }}
 This value type is for a valid email address format. Such as owner@somedomain.org.
 {{- end }}
@@ -63,7 +74,7 @@ This value type is for a valid email address format. Such as owner@somedomain.or
 
 {{ define "chart.typeColumnRender" }}
 {{- if (eq .Type "string/email") }}
-<a href="#string-email" title="{{ template "chart.valuetypes.email" }}">{{.Type}}</a>
+<a href="#stringemail" title="{{- template "chart.valuetypes.email" -}}">{{.Type}}</a>
 {{- else }}
 {{ .Type }}
 {{- end }}
@@ -81,7 +92,7 @@ This value type is for a valid email address format. Such as owner@somedomain.or
 	{{- range .Values }}
 		<tr>
 			<td>{{ .Key }}</td>
-			<td>{{ template "chart.typeColumnRender" . }}</td>
+			<td>{{- template "chart.typeColumnRender" . -}}</td>
 			<td>{{ template "chart.valueDefaultColumnRender" . }}</td>
 			<td>{{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }}</td>
 		</tr>

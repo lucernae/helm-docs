@@ -45,6 +45,17 @@ from this README.
 
 ### string/email
 
+One of the benefit of using HTML table is we can make a simple tooltip and anchor.
+For example, the value `global.adminEmail` is annotated as type `string/email`. We create
+the definition of the value type here and can be anchored by links with `#stringemail` hyperlinks.
+
+We can also create custom type column renderer, where we can assign a tooltip for each type.
+Try this out. Go see `global.adminEmail` value, hover on the value type `string/email`, you will then see
+some tooltip. Clicking the type link will direct you back to this section.
+
+Other useful case is If the type is a known type, like
+Kubernetes service type, you can anchor the type to redirect user to k8s documentation page to learn more.
+
 This value type is for a valid email address format. Such as owner@somedomain.org.
 
 ## Values
@@ -197,7 +208,7 @@ object
 		<tr>
 			<td>global.adminEmail</td>
 			<td>
-<a href="#string-email" title="
+<a href="#stringemail" title="
 This value type is for a valid email address format. Such as owner@somedomain.org.">string/email</a>
 </td>
 			<td><pre lang="email">
