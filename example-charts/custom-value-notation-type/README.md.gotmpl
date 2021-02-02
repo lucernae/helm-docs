@@ -14,7 +14,7 @@
 
 {{ template "chart.requirementsSection" . }}
 
-# Long Description
+# Some Long Description
 
 This is a sample README with custom overrides.
 Check the template in [README.md.gotmpl](README.md.gotmpl).
@@ -38,7 +38,7 @@ from this README.
 ### string/email
 
 One of the benefit of using HTML table is we can make a simple tooltip and anchor.
-For example, the value `global.adminEmail` is annotated as type `string/email`. We create 
+For example, the value [global.adminEmail](#global--adminEmail) is annotated as type `string/email`. We create 
 the definition of the value type here and can be anchored by links with `#stringemail` hyperlinks.
 
 We can also create custom type column renderer, where we can assign a tooltip for each type.
@@ -46,7 +46,8 @@ Try this out. Go see `global.adminEmail` value, hover on the value type `string/
 some tooltip. Clicking the type link will direct you back to this section. 
 
 Other useful case is If the type is a known type, like 
-Kubernetes service type, you can anchor the type to redirect user to k8s documentation page to learn more.
+Kubernetes service type, you can anchor the type to redirect user to k8s documentation page to learn more. 
+Check the value `persistence.staticDir.accessModes`
 
 {{- define "chart.valuetypes.email" }}
 This value type is for a valid email address format. Such as owner@somedomain.org.
@@ -75,6 +76,10 @@ This value type is for a valid email address format. Such as owner@somedomain.or
 {{ define "chart.typeColumnRender" }}
 {{- if (eq .Type "string/email") }}
 <a href="#stringemail" title="{{- template "chart.valuetypes.email" -}}">{{.Type}}</a>
+{{- else if (eq .Type "k8s/storage/persistent-volume/access-modes" )}}
+<a target="_blank" 
+   href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes"
+   >{{- .Type }}</a>
 {{- else }}
 {{ .Type }}
 {{- end }}
@@ -91,7 +96,7 @@ This value type is for a valid email address format. Such as owner@somedomain.or
 	<tbody>
 	{{- range .Values }}
 		<tr>
-			<td>{{ .Key }}</td>
+			<td id="{{ .Key | replace "." "--" }}">{{ .Key }}</td>
 			<td>{{- template "chart.typeColumnRender" . -}}</td>
 			<td>{{ template "chart.valueDefaultColumnRender" . }}</td>
 			<td>{{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }}</td>

@@ -176,6 +176,8 @@ persistence:
     mountPath: /opt/django/static
     subPath: "static"
     size: 8Gi
+    # -- (k8s/storage/persistent-volume/access-modes) Static Dir access modes
+    # @notationType -- yaml
     accessModes:
       - ReadWriteOnce
     annotations: {}
