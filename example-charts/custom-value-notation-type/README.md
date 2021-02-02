@@ -41,21 +41,26 @@ In the template file, we redefine `chart.valuesTableHtml` so that we use table h
 want to combine helm-docs with a JAMStack static generator where you can have your own page generated
 from this README.
 
-## Value Types
+The customization can goes even further. Normally, you can't define anchor in markdown unless it it a heading. But you can do so easily using HTML tags.
+You can override the column key renderer by adding an `id` attribute so that it can be referred.
+This way, when you write markdown links like [persistence.enabled](#persistence--enabled), clicking the link
+will take you to the value description row.
 
-### string/email
+## Value Types
 
 One of the benefit of using HTML table is we can make a simple tooltip and anchor.
 For example, the value [global.adminEmail](#global--adminEmail) is annotated as type `string/email`. We create
 the definition of the value type here and can be anchored by links with `#stringemail` hyperlinks.
 
 We can also create custom type column renderer, where we can assign a tooltip for each type.
-Try this out. Go see `global.adminEmail` value, hover on the value type `string/email`, you will then see
-some tooltip. Clicking the type link will direct you back to this section.
+Try this out. Go navigate to [global.adminEmail](#global--adminEmail) value, hover on the value type `string/email`, you will then see
+some tooltip. Clicking the type link will direct you back to it's relevant value type section below.
 
 Other useful case is If the type is a known type, like
 Kubernetes service type, you can anchor the type to redirect user to k8s documentation page to learn more.
-Check the value `persistence.staticDir.accessModes`
+Check the value [ingress.tls.secretName](#ingress--tls--secretName)
+
+### string/email
 
 This value type is for a valid email address format. Such as owner@somedomain.org.
 
