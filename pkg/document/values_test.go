@@ -1333,25 +1333,25 @@ animals:
 	assert.Equal(t, "animals.cats", valuesRows[0].Key)
 	assert.Equal(t, listType, valuesRows[0].Type)
 	assert.Equal(t, yamlType, valuesRows[0].NotationType)
-	assert.Equal(t, "\n- mike\n- ralph\n", valuesRows[0].Default)
+	assert.Equal(t, "- mike\n- ralph\n", valuesRows[0].Default)
 	assert.Equal(t, "My animals lists", valuesRows[0].AutoDescription)
 
 	assert.Equal(t, "animals.catsInTpl", valuesRows[1].Key)
 	assert.Equal(t, listType, valuesRows[1].Type)
 	assert.Equal(t, tplType, valuesRows[1].NotationType)
-	assert.Equal(t, "\nanimals.catsInTpl: |\n{{- .Values.animals.cats }}\n", valuesRows[1].Default)
+	assert.Equal(t, "{{- .Values.animals.cats }}\n", valuesRows[1].Default)
 	assert.Equal(t, "My animal lists, but in tpl string", valuesRows[1].AutoDescription)
 
 	assert.Equal(t, "animals.dinosaur", valuesRows[2].Key)
 	assert.Equal(t, objectType, valuesRows[2].Type)
 	assert.Equal(t, tplType, valuesRows[2].NotationType)
-	assert.Equal(t, "\nanimals.dinosaur: |\nname: hockney\ndynamicVar: {{ .Values.fromOtherProperty }}\n", valuesRows[2].Default)
+	assert.Equal(t, "name: hockney\ndynamicVar: {{ .Values.fromOtherProperty }}\n", valuesRows[2].Default)
 	assert.Equal(t, "Declaring object as tpl (to be cascaded with tpl function)", valuesRows[2].AutoDescription)
 
 	assert.Equal(t, "animals.fish", valuesRows[3].Key)
 	assert.Equal(t, objectType, valuesRows[3].Type)
 	assert.Equal(t, yamlType, valuesRows[3].NotationType)
-	assert.Equal(t, "\nname: nomoby\n", valuesRows[3].Default)
+	assert.Equal(t, "name: nomoby\n", valuesRows[3].Default)
 	assert.Equal(t, "My animals lists", valuesRows[0].AutoDescription)
 }
 
