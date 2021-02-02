@@ -1,0 +1,95 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+# Long Description
+
+This is a sample README with custom overrides.
+Check the template in [README.md.gotmpl](README.md.gotmpl).
+
+In that file, we redefine the template definition of `chart.valueDefaultColumnRender`
+for some custom `@notationType` such as `string/email`.
+
+This chart README uses `chart.valuesSectionHtml` instead of `chart.valuesSection`.
+Using HTML table directly instead of using Markdown table allows us to control the table
+presentation, such as the height. This is especially useful for very long `values.yaml` file, 
+and you need to scroll both horizontally and vertically to navigate the values.
+
+In the template file, we redefine `chart.valuesTableHtml` so that we use table height of 
+400px at most. Github can understand that attribute. The more sophisticated use case is if you
+want to combine helm-docs with a JAMStack static generator where you can have your own page generated 
+from this README.
+
+
+## Value Types
+
+### string/email
+
+{{- define "chart.valuetypes.email" }}
+This value type is for a valid email address format. Such as owner@somedomain.org.
+{{- end }}
+{{ template "chart.valuetypes.email" . }}
+
+{{ define "chart.valueDefaultColumnRender" }}
+{{- $defaultValue := (default .Default .AutoDefault)  -}}
+{{- $notationType := .NotationType }}
+{{- if (and (hasPrefix "`" $defaultValue) (hasSuffix "`" $defaultValue) ) -}}
+{{- $defaultValue = (toPrettyJson (fromJson (trimAll "`" (default .Default .AutoDefault) ) ) ) -}}
+{{- $notationType = "json" }}
+{{- end -}}
+<pre lang="{{ $notationType }}">
+{{- if (eq $notationType "tpl" ) }}
+{{ .Key }}: |
+{{- $defaultValue | nindent 2 }}
+{{- else if (eq $notationType "email") }}
+<a href="mailto:{{ $defaultValue }}">"{{ $defaultValue }}"</a>
+{{- else }}
+{{ $defaultValue }}
+{{- end }}
+</pre>
+{{ end }}
+
+{{ define "chart.typeColumnRender" }}
+{{- if (eq .Type "string/email") }}
+<a href="#string-email" title="{{ template "chart.valuetypes.email" }}">{{.Type}}</a>
+{{- else }}
+{{ .Type }}
+{{- end }}
+{{ end }}
+
+{{ define "chart.valuesTableHtml" }}
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+	{{- range .Values }}
+		<tr>
+			<td>{{ .Key }}</td>
+			<td>{{ template "chart.typeColumnRender" . }}</td>
+			<td>{{ template "chart.valueDefaultColumnRender" . }}</td>
+			<td>{{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }}</td>
+		</tr>
+	{{- end }}
+	</tbody>
+</table>
+{{ end }}
+
+{{ template "chart.valuesSectionHtml" . }}
+
+{{ template "helm-docs.versionFooter" . }}
